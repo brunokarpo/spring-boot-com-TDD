@@ -1,3 +1,4 @@
+# Ignorando códigos compilados do Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -8,5 +9,12 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
-!/.mvn/wrapper/maven-wrapper.jar
+#Ignorando arquivos de configuração da IDE
+.idea/
+*.iml
+
+# Ignorando arquivos ocultos diversos (Exceto o .gitignore e a pasta que tras o Maven embutido)
+.*
+!.gitignore
+!.mvn/
+
