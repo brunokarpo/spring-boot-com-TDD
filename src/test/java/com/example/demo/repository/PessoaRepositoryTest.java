@@ -45,4 +45,23 @@ public class PessoaRepositoryTest {
 
         assertThat(optional.isPresent()).isFalse();
     }
+
+    @Test
+    public void deve_encontrar_pessoa_pelo_ddd_e_numero_de_telefone() throws Exception {
+        Optional<Pessoa> optional = sut.findByTelefoneDddAndTelefoneNumero("86", "35006330");
+
+        assertThat(optional.isPresent()).isTrue();
+
+        Pessoa pessoa = optional.get();
+        assertThat(pessoa.getCodigo()).isEqualTo(3L);
+        assertThat(pessoa.getNome()).isEqualTo("Cauê");
+        assertThat(pessoa.getCpf()).isEqualTo("38767897100");
+    }
+
+    @Test
+    public void nao_deve_encontrar_pessoa_cujo_ddd_e_telefone_nao_estejam_cadastrados() throws Exception {
+        Optional<Pessoa> optional = sut.findByTelefoneDddAndTelefoneNumero("11", "324516731");
+
+        assertThat(optional.isPresent()).isFalse();
+    }
 }
