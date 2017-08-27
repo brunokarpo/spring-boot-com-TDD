@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.modelo.Pessoa;
+import com.example.demo.repository.filtro.PessoaFiltro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,5 +65,25 @@ public class PessoaRepositoryTest {
         Optional<Pessoa> optional = sut.findByTelefoneDddAndTelefoneNumero("11", "324516731");
 
         assertThat(optional.isPresent()).isFalse();
+    }
+
+    @Test
+    public void deve_filtrar_pessoas_por_parte_do_nome() throws Exception {
+        PessoaFiltro filtro = new PessoaFiltro();
+        filtro.setNome("a");
+
+        List<Pessoa> pessoas = sut.filtrar(filtro);
+
+        assertThat(pessoas.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void deve_filtrar_pessoas_por_parte_do_cpf() throws Exception {
+        PessoaFiltro filtro = new PessoaFiltro();
+        filtro.setCpf("78");
+
+        List<Pessoa> pessoas = sut.filtrar(filtro);
+
+        assertThat(pessoas.size()).isEqualTo(3);
     }
 }
