@@ -7,10 +7,7 @@ import com.example.demo.servico.exception.TelefoneNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Bruno Nogueira de Oliveira
@@ -32,7 +29,24 @@ public class PessoaResource {
 
         final Pessoa pessoa = pessoaService.buscarPorTelefone(telefone);
 
-        return new ResponseEntity<Pessoa>(pessoa, HttpStatus.OK);
+        return new ResponseEntity<>(pessoa, HttpStatus.OK);
+    }
+
+    @ExceptionHandler({TelefoneNaoEncontradoException.class})
+    public ResponseEntity<Erro> handleTelefoneNaoEncontradoException(TelefoneNaoEncontradoException e) {
+        return new ResponseEntity<>(new Erro(e.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    class Erro {
+        private final String erro;
+
+        public Erro(String erro) {
+            this.erro = erro;
+        }
+
+        public String getErro() {
+            return erro;
+        }
     }
 
 }

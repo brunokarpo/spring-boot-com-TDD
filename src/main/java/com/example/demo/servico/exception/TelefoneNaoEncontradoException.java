@@ -5,4 +5,8 @@ package com.example.demo.servico.exception;
  * @date 23/08/17.
  */
 public class TelefoneNaoEncontradoException extends Exception {
+
+    public TelefoneNaoEncontradoException(String message) {
+        super(message);
+    }
 }
