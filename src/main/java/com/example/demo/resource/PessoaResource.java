@@ -49,6 +49,11 @@ public class PessoaResource {
         return new ResponseEntity<>(pessoaSalva, HttpStatus.CREATED);
     }
 
+    @ExceptionHandler({UnicidadeCpfException.class})
+    public ResponseEntity<Erro> handleUnicidadeCpfException(UnicidadeCpfException e) {
+        return new ResponseEntity<>(new Erro(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({TelefoneNaoEncontradoException.class})
     public ResponseEntity<Erro> handleTelefoneNaoEncontradoException(TelefoneNaoEncontradoException e) {
         return new ResponseEntity<>(new Erro(e.getMessage()), HttpStatus.NOT_FOUND);

@@ -30,7 +30,7 @@ public class PessoaServiceImpl implements PessoaService {
         Optional<Pessoa> optional = pessoaRepository.findByCpf(pessoa.getCpf());
 
         if( optional.isPresent() ) {
-            throw new UnicidadeCpfException();
+            throw new UnicidadeCpfException("Já existe pessoa cadastrada com o CPF '"+pessoa.getCpf()+"'");
         }
 
         final String ddd = pessoa.getTelefones().get(0).getDdd();

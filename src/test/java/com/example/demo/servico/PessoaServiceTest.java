@@ -70,9 +70,12 @@ public class PessoaServiceTest {
         verify(pessoaRepository).save(pessoa);
     }
 
-    @Test(expected = UnicidadeCpfException.class)
+    @Test
     public void nao_deve_salvar_duas_pessoas_com_o_mesmo_cpf() throws Exception {
         when(pessoaRepository.findByCpf(CPF)).thenReturn(Optional.of(pessoa));
+
+        expectedException.expect(UnicidadeCpfException.class);
+        expectedException.expectMessage("Já existe pessoa cadastrada com o CPF '"+ CPF +"'");
 
         sut.salvar(pessoa);
     }
