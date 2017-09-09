@@ -1,6 +1,6 @@
 package com.example.demo.modelo;
 
-import org.omg.CORBA.portable.IDLEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -24,6 +24,7 @@ public class Telefone {
 
     @ManyToOne
     @JoinColumn(name = "codigo_pessoa")
+    @JsonIgnore
     private Pessoa pessoa;
 
     public Long getCodigo() {

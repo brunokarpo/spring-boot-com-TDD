@@ -7,6 +7,8 @@ import com.example.demo.servico.PessoaService;
 import com.example.demo.servico.exception.TelefoneNaoEncontradoException;
 import com.example.demo.servico.exception.UnicidadeCpfException;
 import com.example.demo.servico.exception.UnicidadeTelefoneException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -14,6 +16,7 @@ import java.util.Optional;
  * @author Bruno Nogueira de Oliveira
  * @date 23/08/17.
  */
+@Service
 public class PessoaServiceImpl implements PessoaService {
 
     private final PessoaRepository pessoaRepository;

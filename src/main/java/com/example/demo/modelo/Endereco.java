@@ -1,5 +1,7 @@
 package com.example.demo.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -22,6 +24,7 @@ public class Endereco {
 
     @ManyToOne
     @JoinColumn(name = "codigo_pessoa")
+    @JsonIgnore
     private Pessoa pessoa;
 
     public String getLogradouro() {
