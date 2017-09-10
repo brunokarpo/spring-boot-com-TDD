@@ -2,6 +2,8 @@ package com.example.demo.resource;
 
 import com.example.demo.modelo.Pessoa;
 import com.example.demo.modelo.Telefone;
+import com.example.demo.repository.PessoaRepository;
+import com.example.demo.repository.filtro.PessoaFiltro;
 import com.example.demo.servico.PessoaService;
 import com.example.demo.servico.exception.TelefoneNaoEncontradoException;
 import com.example.demo.servico.exception.UnicidadeCpfException;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
+import java.util.List;
 
 /**
  * @author Bruno Nogueira de Oliveira
@@ -25,6 +28,9 @@ public class PessoaResource {
 
     @Autowired
     private PessoaService pessoaService;
+
+    @Autowired
+    private PessoaRepository repository;
 
     @GetMapping("/{ddd}/{numero}")
     public ResponseEntity<Pessoa> buscarPorDddENumeroDoTelefone(@PathVariable("ddd") String ddd,
@@ -47,6 +53,12 @@ public class PessoaResource {
         response.setHeader("Location", uri.toASCIIString());
 
         return new ResponseEntity<>(pessoaSalva, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/filtrar")
+    public ResponseEntity<List<Pessoa>> filtrar(@RequestBody PessoaFiltro filtro) {
+        final List<Pessoa> pessoas = repository.filtrar(filtro);
+        return new ResponseEntity<>(pessoas, HttpStatus.OK);
     }
 
     @ExceptionHandler({UnicidadeCpfException.class})
